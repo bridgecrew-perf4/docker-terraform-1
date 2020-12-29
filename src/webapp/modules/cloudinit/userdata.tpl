@@ -2,22 +2,7 @@
 repo_update: true
 repo_upgrade: all
 
-write_files:
-- path: /home/centos/config/meta_data.json
-  permissions: '0777'
-  content: |
-     {
-     "meta": {
-      "server_role" : "web"
-     }
-             }
-             
-- path: /home/centos/testing.sh
-  permissions: '0777'
-  owner: centos:centos
-  content: |
-     #!/bin/sh
-     touch /home/centos/testing.txt
+write_files: 
 
 - path: /home/centos/ssh_keys.sh
   permissions: '0777'
@@ -35,16 +20,14 @@ write_files:
   owner: centos:centos
   content: |
      #!/bin/sh
-     git clone https://github.com/krishnamaram2/configuration-manager.git
+     git clone https://github.com/cloudstones/ansible.git
 
-     cd configuration-manager/src/webapp
+     cd ansible/src/webapp
 
      ansible-playbook -i hosts plays/webapp.yml
 
 
 runcmd:
- - touch /home/centos/touch.txt
- - [ sh, /home/centos/testing.sh ]
 #- [ sh, /home/centos/ssh_keys.sh ]
- - [ sh, /home/centos/play_books.sh ]
+#- [ sh, /home/centos/play_books.sh ]
 
