@@ -1,7 +1,7 @@
 #########################################  Importing  modules #################################
 
 module "computing"{
-source = "./modules/computing"
+source = "./modules/computing/ec2"
 websg = "${module.security.websg}"
 publicsubnet = "${module.networking.publicsubnet}"
 userdata = "${module.cloudinit.userdata}"
