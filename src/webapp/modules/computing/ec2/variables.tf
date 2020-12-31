@@ -10,7 +10,7 @@ type = string
 variable "private-subnet"{
 type = string
 }
-variable "websg"{
+variable "appsg"{
 type = "string"
 }
 variable "dbsg"{

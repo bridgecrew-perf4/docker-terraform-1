@@ -1,10 +1,3 @@
-variable "myvpc"{
+variable "cloudstones-vpc"{
 type = string
 }
-#variable "mysecretkey"{
-#type = "string"
-#}
-#variable "myregion"{
-#type = "string"
-#default = "us-east-1"
-#}

@@ -5,7 +5,7 @@ ami = "${var.myamiid}"
 instance_type = "t2.medium"
 subnet_id = "${var.public-subnet}"
 private_ip= "192.168.1.6"
-vpc_security_group_ids = ["${var.websg}"]
+vpc_security_group_ids = ["${var.appsg}"]
 key_name = "${var.mykeypair}"
 }
 

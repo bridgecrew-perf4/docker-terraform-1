@@ -1,11 +1,11 @@
 
 ############################################ Elastic IPs ###############################
-resource "aws_eip" "webeip"{
-instance = "${var.webserver}"
+resource "aws_eip" "appeip"{
+instance = "${var.appserver}"
 }
 
 ############################################ Cloudstones VPC ###############################
-}
+
 resource "aws_vpc" "cloudstones-vpc"{
 cidr_block = "192.168.0.0/16"
 tags ={
@@ -46,7 +46,7 @@ gateway_id = "${aws_internet_gateway.myigw.id}"
  
 resource "aws_route_table_association" "publicrtba"{
 route_table_id = "${aws_route_table.publicrtb.id}"
-subnet_id = "${aws_subnet.publicsubnet.id}"
+subnet_id = "${aws_subnet.public-subnet.id}"
 }
 
 
@@ -69,5 +69,5 @@ Name = "privatertb"
 
 resource "aws_route_table_association" "privatertba"{
 route_table_id = "${aws_route_table.privatertb.id}"
-subnet_id = "${aws_subnet.privatesubnet.id}"
+subnet_id = "${aws_subnet.private-subnet.id}"
 }

@@ -1,5 +1,5 @@
-output "webserver" {
-value = "${aws_instance.webserver.id}"
+output "appserver" {
+value = "${aws_instance.appserver.id}"
 }
 output "dbserver" {
 value = "${aws_instance.dbserver.id}"

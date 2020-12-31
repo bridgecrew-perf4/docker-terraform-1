@@ -1,8 +1,8 @@
 ###########################  Security group for appserver ########################
-resource "aws_security_group" "websg" {
-  name        = "websg"
+resource "aws_security_group" "appsg" {
+  name        = "appsg"
   description = "Allow all traffic"
-  vpc_id ="${var.myvpc}"
+  vpc_id ="${var.cloudstones-vpc}"
   ingress {
     description = "TLS from VPC"
     from_port   = 0
@@ -17,7 +17,7 @@ resource "aws_security_group" "websg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "websg"
+    Name = "appsg"
   }
 }
 
@@ -27,7 +27,7 @@ resource "aws_security_group" "websg" {
 resource "aws_security_group" "dbsg" {
   name        = "dbsg"
   description = "Allow all traffic"
-  vpc_id ="${var.myvpc}"
+  vpc_id ="${var.cloudstones-vpc}"
   ingress {
     description = "TLS from VPC"
     from_port   = 0
@@ -44,3 +44,4 @@ resource "aws_security_group" "dbsg" {
   tags = {
     Name = "dbsg"
   }
+}

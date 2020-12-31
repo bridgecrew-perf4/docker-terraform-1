@@ -12,14 +12,14 @@ mykeypair = "${var.mykeypair}"
 
 
 module "networking"{
-source = "./modules/networking"
+source = "./modules/networking/vpc"
 appserver = "${module.computing.appserver}"
 dbserver = "${module.computing.dbserver}"
 }
 
 
 module "security"{
-source = "./modules/security"
-myvpc = "${module.networking.myvpc}"
+source = "./modules/security/sg"
+cloudstones-vpc = "${module.networking.cloudstones-vpc}"
 }
 
