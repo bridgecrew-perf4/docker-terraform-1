@@ -1,13 +1,12 @@
 
 {
-
 "myregion" : "us-east-1",
 
 "myaccesskey" : "",
 
 "mysecretkey" : "",
 
-"myamiid" : "ami-04e7101e25c6bc584"
-"mykeypair" : "testing"
+"myamiid" : "ami-0feb1371585d13fbd",
 
+"mykeypair" : "testing"
 }

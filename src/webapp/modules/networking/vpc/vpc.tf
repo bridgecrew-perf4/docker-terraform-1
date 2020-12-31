@@ -3,6 +3,9 @@
 resource "aws_eip" "appeip"{
 instance = "${var.appserver}"
 }
+resource "aws_eip" "ngweip"{
+}
+
 
 ############################################ Cloudstones VPC ###############################
 
@@ -51,6 +54,15 @@ subnet_id = "${aws_subnet.public-subnet.id}"
 
 
 ############################################ Private Subnet ###############################
+resource "aws_nat_gateway" "ngw" {
+  allocation_id = aws_eip.ngweip.id
+  subnet_id     = aws_subnet.public-subnet.id
+
+  tags = {
+    Name = "ngw"
+  }
+}
+
 resource "aws_subnet" "private-subnet"{
 availability_zone = "us-east-1b"
 vpc_id = "${aws_vpc.cloudstones-vpc.id}"
@@ -67,6 +79,11 @@ Name = "privatertb"
 }
 }
 
+resource "aws_route" "privatert"{
+route_table_id = "${aws_route_table.privatertb.id}"
+destination_cidr_block = "0.0.0.0/0"
+gateway_id = "${aws_nat_gateway.ngw.id}"
+}
 resource "aws_route_table_association" "privatertba"{
 route_table_id = "${aws_route_table.privatertb.id}"
 subnet_id = "${aws_subnet.private-subnet.id}"
