@@ -2,21 +2,18 @@
 
 module "computing"{
 source = "./modules/computing/ec2"
-websg = "${module.security.websg}"
-publicsubnet = "${module.networking.publicsubnet}"
-userdata = "${module.cloudinit.userdata}"
-#myregion = "${var.myregion}"
-#myaccesskey = "${var.myaccesskey}"
-#mysecretkey = "${var.mysecretkey}"
+appsg = "${module.security.appsg}"
+dbsg = "${module.security.dbsg}"
+public-subnet = "${module.networking.public-subnet}"
+private-subnet = "${module.networking.private-subnet}"
 myamiid = "${var.myamiid}"
 mykeypair = "${var.mykeypair}"
-tags = "${module.tags.tags}"
 }
 
 
 module "networking"{
 source = "./modules/networking"
-webserver = "${module.computing.webserver}"
+appserver = "${module.computing.appserver}"
 dbserver = "${module.computing.dbserver}"
 }
 
@@ -26,20 +23,3 @@ source = "./modules/security"
 myvpc = "${module.networking.myvpc}"
 }
 
-
-module "storage"{
-source = "./modules/storage"
-webserver = "${module.computing.webserver}"
-}
-
-
-module "cloudinit"{
-source = "./modules/cloudinit"
-}
-
-
-module "tags"{
-source = "./modules/tags"
-fname = "${var.fname}"
-lname = "${var.lname}"
-}

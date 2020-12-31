@@ -1,31 +1,22 @@
-################################################  Computing modules #####################################
-resource "aws_instance" "webserver" {
-count = 1
-availability_zone = "us-east-1c"
+################################################  app server #####################################
+resource "aws_instance" "appserver" {
+availability_zone = "us-east-1a"
 ami = "${var.myamiid}"
 instance_type = "t2.medium"
-subnet_id = "${var.publicsubnet}"
+subnet_id = "${var.public-subnet}"
 private_ip= "192.168.1.6"
 vpc_security_group_ids = ["${var.websg}"]
 key_name = "${var.mykeypair}"
-user_data = "${var.userdata}"
-tags = "${merge(var.tags, map("Name", format("web-server-%d", count.index + 1)))}"
-root_block_device {
-  volume_type = "standard"
-  volume_size = "9"
-  delete_on_termination = "true"
-  }
 }
 
+
+################################### db server #####################################
 resource "aws_instance" "dbserver" {
-count = 1
-availability_zone = "us-east-1c"
+availability_zone = "us-east-1b"
 ami = "${var.myamiid}"
 instance_type = "t2.medium"
-subnet_id = "${var.publicsubnet}"
-private_ip= "192.168.1.7"
-vpc_security_group_ids = ["${var.websg}"]
+subnet_id = "${var.private-subnet}"
+private_ip= "192.168.2.6"
+vpc_security_group_ids = ["${var.dbsg}"]
 key_name = "${var.mykeypair}"
-user_data = "${var.userdata}"
-tags = "${merge(var.tags, map("Name", format("db-server-%d", count.index + 1)))}"
 }
