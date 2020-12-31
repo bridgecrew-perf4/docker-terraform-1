@@ -6,7 +6,13 @@
 
 "mysecretkey" : "",
 
+<<<<<<< HEAD
 "myamiid" : "ami-0feb1371585d13fbd",
 
 "mykeypair" : "testing"
+=======
+"myamiid" : "",
+  
+"mykeypair" : ""
+>>>>>>> 6191b3c50ea05fd7f0e15408d1c689c30d049220
 }
