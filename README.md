@@ -12,14 +12,14 @@ Execution Flow
 
 $git clone https://github.com/cloudstones/terraform.git
 
-$cd terraform/src/webapp
+$cd terraform/src/cloud/providers/aws
 
 $source export.sh
 
-$vi config.json
+$vi terraform/src/cloud/cluster_templates/dev_aws.json
 
 {
-"myregion" : "us-east-1",
+"myregion" : "",
 
 "myamiid" : "",
   
@@ -29,6 +29,6 @@ $vi config.json
 
 $terraform init .
 
-$terraform validate -var-file=config.json .
+$terraform validate -var-file=../cluster_templates/dev_aws.json .
 
-$terraform apply -var-file=config.json .
+$terraform apply -var-file=../cluster_templates/dev_aws.json .
