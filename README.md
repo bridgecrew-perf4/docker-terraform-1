@@ -14,6 +14,8 @@ $git clone https://github.com/cloudstones/terraform.git
 
 $cd terraform/src/webapp
 
+$source export.sh
+
 $vi config.json
 
 {
