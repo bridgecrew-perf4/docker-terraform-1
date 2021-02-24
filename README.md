@@ -10,9 +10,9 @@ Pre-Requisites
 Execution Flow
 =====================
 
-$git clone https://github.com/krishnamaram2/terraform.git
+$git clone https://github.com/cloudstones/terraform.git
 
-$cd infrastructure-manager/src
+$cd terraform/src/webapp
 
 $vi config.json
 
