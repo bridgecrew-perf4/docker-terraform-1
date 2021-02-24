@@ -14,7 +14,9 @@ $git clone https://github.com/cloudstones/terraform.git
 
 $cd terraform/src/cloud/providers/aws
 
-$source export.sh
+$python generate_token.py
+
+$source export_keys.sh
 
 $vi terraform/src/cloud/cluster_templates/dev_aws.json
 
