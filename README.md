@@ -19,15 +19,11 @@ $source export.sh
 $vi config.json
 
 {
-
 "myregion" : "us-east-1",
 
-"myaccesskey" : "",
-
-"mysecretkey" : "",
-
-"myamiid" : ""
-
+"myamiid" : "",
+  
+"mykeypair" : ""
 }
 
 
