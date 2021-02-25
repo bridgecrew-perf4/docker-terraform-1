@@ -15,6 +15,6 @@ RUN apk update && \
     
 ADD . /terraform
 
-WORKDIR /terraform
+WORKDIR /terraform/aws
 
 ENTRYPOINT ["/usr/bin/terraform"]
