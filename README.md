@@ -35,3 +35,6 @@ $terraform init .
 $terraform validate -var-file=../../clusters/dev.json .
 
 $terraform apply -var-file=../../clusters/dev.json .
+
+
+sudo docker container run -e AWS_ACCESS_KEY_ID=AKIAII54256AAJA6BEKA -e AWS_SECRET_ACCESS_KEY=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   aws1 init -var-file=./cluster_templates/csp_dev.json -auto-approve .
