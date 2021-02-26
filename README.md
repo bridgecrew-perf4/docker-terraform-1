@@ -10,15 +10,15 @@ Pre-Requisites
 Execution Flow
 =====================
 
-$git clone https://github.com/cloudstones/terraform.git
+$git clone https://github.com/cloudstones/linux-terraform.git
 
-$cd terraform/src/cloud/providers/aws
+$cd linux-terraform/src/
 
 $python generate_token.py
 
 $source export_keys.sh
 
-$vi terraform/src/cloud/cluster_templates/dev_aws.json
+$vi terraform/src/clusters/dev.json
 
 {
 "myregion" : "",
@@ -28,9 +28,10 @@ $vi terraform/src/cloud/cluster_templates/dev_aws.json
 "mykeypair" : ""
 }
 
+$cd providers/aws
 
 $terraform init .
 
-$terraform validate -var-file=../cluster_templates/dev_aws.json .
+$terraform validate -var-file=../../clusters/dev.json .
 
-$terraform apply -var-file=../cluster_templates/dev_aws.json .
+$terraform apply -var-file=../../clusters/dev.json .
