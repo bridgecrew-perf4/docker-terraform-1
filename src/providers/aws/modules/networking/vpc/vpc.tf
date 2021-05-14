@@ -26,7 +26,7 @@ Name = "myigw"
 
 
 resource "aws_subnet" "public-subnet"{
-availability_zone = "us-east-1a"
+#availability_zone = "us-east-1a"
 vpc_id = "${aws_vpc.cloudstones-vpc.id}"
 cidr_block = "192.168.1.0/24"
 tags={
@@ -64,7 +64,7 @@ resource "aws_nat_gateway" "ngw" {
 }
 
 resource "aws_subnet" "private-subnet"{
-availability_zone = "us-east-1b"
+#availability_zone = "us-east-1b"
 vpc_id = "${aws_vpc.cloudstones-vpc.id}"
 cidr_block = "192.168.2.0/24"
 tags={

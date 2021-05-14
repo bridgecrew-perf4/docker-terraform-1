@@ -1,6 +1,6 @@
 ################################################  app server #####################################
 resource "aws_instance" "appserver" {
-availability_zone = "us-east-1a"
+#availability_zone = "us-east-1a"
 ami = "${var.myamiid}"
 instance_type = "t2.medium"
 subnet_id = "${var.public-subnet}"
@@ -12,7 +12,7 @@ key_name = "${var.mykeypair}"
 
 ################################### db server #####################################
 resource "aws_instance" "dbserver" {
-availability_zone = "us-east-1b"
+#availability_zone = "us-east-1b"
 ami = "${var.myamiid}"
 instance_type = "t2.medium"
 subnet_id = "${var.private-subnet}"
