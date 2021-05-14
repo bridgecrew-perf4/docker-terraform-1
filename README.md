@@ -21,11 +21,11 @@ $cd mesos-terraform/src/
 $vi clusters/aws/dev.json
 
 {
-"myregion" : "",
 
 "myamiid" : "",
   
 "mykeypair" : ""
+
 }
 
 $cd providers/aws
