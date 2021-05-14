@@ -12,13 +12,13 @@ Execution Flow
 
 $git clone https://github.com/cloudstones/mesos-terraform.git
 
-$python generate_token.py
+$cd mesos-terraform
 
-$source export_keys.sh
+$python resources/generate_token.py
 
-$cd mesos-terraform/src/
+$source resources/export_keys.sh
 
-$vi clusters/aws/dev.json
+$vi src/clusters/aws/dev.json
 
 {
 
@@ -28,13 +28,11 @@ $vi clusters/aws/dev.json
 
 }
 
-$cd providers/aws
+$terraform init src/providers/aws
 
-$terraform init .
+$terraform validate -var-file=src/clusters/aws/dev.json src/providers/aws
 
-$terraform validate -var-file=../../clusters/aws/dev.json .
-
-$terraform apply -var-file=../../clusters/aws/dev.json .
+$terraform apply -var-file=src/clusters/aws/dev.json src/providers/aws
 
 
-sudo docker container run -e AWS_ACCESS_KEY_ID= -e AWS_SECRET_ACCESS_KEY=   aws1 init -var-file=../../clusters/aws/dev.json -auto-approve .
+sudo docker container run -e AWS_ACCESS_KEY_ID= -e AWS_SECRET_ACCESS_KEY=   aws1 init -var-file=src/clusters/aws/dev.json -auto-approve .
