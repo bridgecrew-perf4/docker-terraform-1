@@ -16,7 +16,7 @@ $python generate_token.py
 
 $source export_keys.sh
 
-$cd linux-terraform/src/
+$cd mesos-terraform/src/
 
 $vi clusters/aws/dev.json
 
