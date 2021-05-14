@@ -35,4 +35,4 @@ $terraform validate -var-file=src/clusters/aws/dev.json src/providers/aws
 $terraform apply -var-file=src/clusters/aws/dev.json src/providers/aws
 
 
-sudo docker container run -e AWS_ACCESS_KEY_ID= -e AWS_SECRET_ACCESS_KEY=   aws1 init -var-file=src/clusters/aws/dev.json -auto-approve .
+sudo docker container run -e AWS_ACCESS_KEY_ID= -e AWS_SECRET_ACCESS_KEY= AWS_DEFAULT_REGION=  aws1 init -var-file=src/clusters/aws/dev.json -auto-approve .
