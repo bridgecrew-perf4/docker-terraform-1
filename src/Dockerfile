@@ -13,8 +13,8 @@ RUN apk update && \
     rm -rf /var/cache/apk/* && \
     rm -rf /var/tmp/*
     
-ADD . /linux-terraform
+ADD . /mesos-terraform
 
-WORKDIR /linux-terraform/providers/aws
+WORKDIR /mesos-terraform/providers/aws
 
 ENTRYPOINT ["/usr/bin/terraform"]
