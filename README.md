@@ -12,6 +12,19 @@ Execution Flow
 
 $git clone https://github.com/cloudstones/mesos-terraform.git
 
+$cd mesos-terraform/src
+
+$source ../resources/export_keys.sh
+
+$sh csp.sh
+
+
+
+
+
+
+$git clone https://github.com/cloudstones/mesos-terraform.git
+
 $cd mesos-terraform
 
 $python resources/generate_token.py
@@ -33,14 +46,3 @@ $terraform init src/providers/aws
 $terraform validate -var-file=src/clusters/aws/dev.json src/providers/aws
 
 $terraform apply -var-file=src/clusters/aws/dev.json src/providers/aws
-
-
-
-or
-
-$cd mesos-terraform/src
-
-$sh csp.sh
-
-
-sudo docker container run -e AWS_ACCESS_KEY_ID= -e AWS_SECRET_ACCESS_KEY= AWS_DEFAULT_REGION=  aws1 init -var-file=src/clusters/aws/dev.json -auto-approve .
