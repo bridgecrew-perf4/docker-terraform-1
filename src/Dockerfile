@@ -15,10 +15,6 @@ RUN apk update && \
     
 ADD . /mesos-terraform
 
-<<<<<<< HEAD
 WORKDIR /mesos-terraform
-=======
-WORKDIR /mesos-terraform/providers/aws
->>>>>>> a5f3def2f87a9a810dfc7b22e3df5cb3a19822db
 
 ENTRYPOINT ["python3", "./entrypoint.py"]
