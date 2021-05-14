@@ -35,4 +35,12 @@ $terraform validate -var-file=src/clusters/aws/dev.json src/providers/aws
 $terraform apply -var-file=src/clusters/aws/dev.json src/providers/aws
 
 
+
+or
+
+$cd mesos-terraform/src
+
+$sh csp.sh
+
+
 sudo docker container run -e AWS_ACCESS_KEY_ID= -e AWS_SECRET_ACCESS_KEY= AWS_DEFAULT_REGION=  aws1 init -var-file=src/clusters/aws/dev.json -auto-approve .
