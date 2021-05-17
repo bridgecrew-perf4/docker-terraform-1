@@ -4,8 +4,10 @@ MAINTAINER Krishna Maram
 
 ENV TERRAFORM_VERSION=0.14.6
 
+ENV CSP_CMD="-c ll create"
+
 RUN apk update && \
-    apk add curl jq python3 bash ca-certificates git openssl unzip wget && \
+    apk add curl jq python3 python3-dev bash ca-certificates git openssl unzip wget && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
@@ -17,4 +19,4 @@ ADD . /mesos-terraform
 
 WORKDIR /mesos-terraform
 
-ENTRYPOINT ["python3", "./entrypoint.py"]
+ENTRYPOINT ./entrypoint.py ${CSP_CMD}
