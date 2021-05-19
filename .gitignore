@@ -1,6 +1,6 @@
 # Local .terraform directories
 **/.terraform/*
-export.sh
+export_keys.sh
 config.json
 
 # .tfstate files
