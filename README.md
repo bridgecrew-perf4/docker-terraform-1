@@ -16,7 +16,7 @@ $cd mesos-terraform/src
 
 $source ../resources/export_keys.sh
 
-$sh csp.sh
+$sh csp.sh -c kris create
 
 
 
