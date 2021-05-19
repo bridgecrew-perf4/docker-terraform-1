@@ -1,12 +1,8 @@
 import os
 import sys
+import shutil
 sys.path.insert(0,'packages')
-CWD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-#print(CWD)
 def create_env(clustername):
-    #CWD = os.path.dirname(os.path.abspath(__file__))
-    print("inside def",clustername)
-    print("inside def",CWD)
-    envDir = CWD+"/environments/"+clustername
-    os.mkdir(envDir)
+    CSP_BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    envDir = CSP_BASE+"/environments/"+clustername
+    shutil.copytree(CSP_BASE+"/providers/"+"/aws/",envDir)

@@ -8,7 +8,7 @@ private_ip= "192.168.1.6"
 vpc_security_group_ids = ["${var.appsg}"]
 key_name = "${var.mykeypair}"
 tags = {
-Name = "cloudstones"
+Name = "appserver"
 }
 }
 

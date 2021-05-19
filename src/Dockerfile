@@ -4,7 +4,7 @@ MAINTAINER Krishna Maram
 
 ENV TERRAFORM_VERSION=0.14.6
 
-ENV CSP_CMD="-c ll create"
+ENV CSP_CMD "--help"
 
 RUN apk update && \
     apk add curl jq python3 python3-dev bash ca-certificates git openssl unzip wget && \
