@@ -18,6 +18,13 @@ $source ../resources/export_keys.sh
 
 $sh csp.sh -c kris create
 
+$sh csp.sh -c kris apply
+
+$sh csp.sh -c kris destroy
+
+$sh csp.sh -c kris cleanup
+
+
 
 
 
