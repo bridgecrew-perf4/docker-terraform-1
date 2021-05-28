@@ -6,8 +6,9 @@ ENV TERRAFORM_VERSION=0.14.6
 
 ENV CSP_CMD "--help"
 
-RUN apk update && \
-    apk add curl jq python3 python3-dev bash ca-certificates git openssl unzip wget && \
+RUN apk update 
+RUN apk add --no-cache curl py-pip  jq python3 python3-dev gcc curl bash ca-certificates git openssl unzip wget && \
+    pip install --upgrade pip && pip install awscli netaddr requests boto3 && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
