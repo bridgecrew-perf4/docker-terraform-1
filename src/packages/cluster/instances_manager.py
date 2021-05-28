@@ -1,7 +1,9 @@
 import sys
 import boto3
-sys.path.append(".")
-from abstract_cluster_manager import abstract_cluster_manager
+sys.path.insert(0,'../packages')
+#sys.path.append(".")
+from cluster.abstract_cluster_manager import abstract_cluster_manager
+#import abstract_cluster_manager
 #c = "cloudstones"
 #class instances_manager():
 class instances_manager(abstract_cluster_manager):
