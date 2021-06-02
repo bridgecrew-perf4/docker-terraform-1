@@ -1,11 +1,11 @@
 # Local .terraform directories
 **/.terraform/*
-export_keys.sh
+*export_keys.sh
 
 # .tfstate files
 *.tfstate
 *.tfstate.*
-
+*.pyc
 # Crash log files
 crash.log
 
