@@ -3,8 +3,8 @@
 import subprocess
 
 
-cmds = ["terraform  init providers/aws/ && terraform validate -var-file=clusters/aws/dev.json providers/aws && terraform apply -var-file=clusters/aws/dev.json -auto-approve providers/aws"]
-cmds_destroy = ["terraform  init providers/aws/ && terraform validate -var-file=clusters/aws/dev.json providers/aws && terraform destroy -var-file=clusters/aws/dev.json -auto-approve providers/aws"]
+cmds = ["terraform  init providers/aws/ && terraform validate -var-file=csp_config.json providers/aws && terraform apply -var-file=csp_config.json -auto-approve providers/aws"]
+cmds_destroy = ["terraform  init providers/aws/ && terraform validate -var-file=csp_config.json providers/aws && terraform destroy -var-file=csp_config.json -auto-approve providers/aws"]
 
 def terraform_apply(clustername):
     for cmd in cmds:
