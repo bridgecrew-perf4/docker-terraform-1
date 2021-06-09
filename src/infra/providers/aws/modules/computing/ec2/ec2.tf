@@ -1,28 +1,27 @@
-################################################  app server #####################################
+################################################  lb server #########################
+resource "aws_instance" "lbserver" {
+ami = "${var.myamiid}"
+instance_type = "t2.medium"
+subnet_id = "${aws_subnet.publicsubnet1.id}"
+private_ip = "192.168.1.6"
+vpc_security_group_ids = ["${aws_security_group.websg.id}"]
+key_name = "${var.mykeypair}"
+user_data = "${data.template_file.webserver-userdata.rendered}"
+tags = {
+Name = "lbserver"
+}
+}
+
+################################################  app server #########################
 resource "aws_instance" "appserver" {
-#availability_zone = "us-east-1a"
 ami = "${var.myamiid}"
 instance_type = "t2.medium"
-subnet_id = "${var.public-subnet}"
-private_ip= "192.168.1.6"
-vpc_security_group_ids = ["${var.appsg}"]
+subnet_id = "${aws_subnet.publicsubnet1.id}"
+private_ip = "192.168.1.7"
+vpc_security_group_ids = ["${aws_security_group.websg.id}"]
 key_name = "${var.mykeypair}"
+user_data = "${data.template_file.webserver-userdata.rendered}"
 tags = {
-Name = "cloudstones"
-}
-}
-
-
-################################### db server #####################################
-resource "aws_instance" "dbserver" {
-#availability_zone = "us-east-1b"
-ami = "${var.myamiid}"
-instance_type = "t2.medium"
-subnet_id = "${var.private-subnet}"
-private_ip= "192.168.2.6"
-vpc_security_group_ids = ["${var.dbsg}"]
-key_name = "${var.mykeypair}"
-tags = {
-Name = "dbserver"
+Name = "appserver"
 }
 }
