@@ -35,6 +35,15 @@ write_files:
   owner: centos:centos
   content: |
      #!/bin/sh
+     
+     echo "localhost" > /etc/ansible/hosts
+     
+     sudo mkdir -p /root/.ssh
+     
+     sudo ssh-keygen -f /root/.ssh/id_rsa -P ""
+     
+     cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+
      git clone https://github.com/krishnamaram2/configuration-manager.git
 
      cd configuration-manager/src/webapp
