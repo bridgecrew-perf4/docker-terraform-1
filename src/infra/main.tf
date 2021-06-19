@@ -3,11 +3,9 @@
 module "computing"{
 source = "./modules/computing/ec2"
 websg = "${module.security.websg}"
-publicsubnet = "${module.networking.publicsubnet}"
+publicsubnet1 = "${module.networking.publicsubnet1}"
+privatesubnet1 = "${module.networking.privatesubnet1}"
 userdata = "${module.cloudinit.userdata}"
-#myregion = "${var.myregion}"
-#myaccesskey = "${var.myaccesskey}"
-#mysecretkey = "${var.mysecretkey}"
 myamiid = "${var.myamiid}"
 mykeypair = "${var.mykeypair}"
 tags = "${module.tags.tags}"
@@ -15,22 +13,23 @@ tags = "${module.tags.tags}"
 
 
 module "networking"{
-source = "./modules/networking"
-webserver = "${module.computing.webserver}"
-dbserver = "${module.computing.dbserver}"
+source = "./modules/networking/vpc"
+lbserver = "${module.computing.lbserver}"
+appserver = "${module.computing.appserver}"
 }
 
 
 module "security"{
-source = "./modules/security"
+source = "./modules/security/sg"
 myvpc = "${module.networking.myvpc}"
 }
 
-
-module "storage"{
-source = "./modules/storage"
-webserver = "${module.computing.webserver}"
+module "dbms"{
+source = "./modules/dbms/rds"
+mydbsubnetgroup = "${module.networking.mydbsubnetgroup}"
+websg = "${module.security.websg}"
 }
+
 
 
 module "cloudinit"{

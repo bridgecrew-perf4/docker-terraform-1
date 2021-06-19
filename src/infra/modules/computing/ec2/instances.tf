@@ -1,15 +1,22 @@
 ################################################  Computing modules #####################################
+resource "aws_eip" "lbeip"{
+count = 2
+instance = "${element(aws_instance.lbserver.*.id, count.index)}"
+vpc = "true"
+}
+
+
 resource "aws_instance" "lbserver" {
-count = 1
-availability_zone = "us-east-1c"
+count = 2
+#availability_zone = "us-east-1c"
 ami = "${var.myamiid}"
 instance_type = "t2.medium"
-subnet_id = "${var.publicsubnet}"
-private_ip= "192.168.1.6"
+subnet_id = "${var.publicsubnet1}"
+#private_ip= "192.168.1.6"
 vpc_security_group_ids = ["${var.websg}"]
 key_name = "${var.mykeypair}"
 user_data = "${var.userdata}"
-tags = "${merge(var.tags, map("Name", format("web-server-%d", count.index + 1)))}"
+tags = "${merge(var.tags, map("Name", format("lb-server-%d", count.index + 1)))}"
 root_block_device {
   volume_type = "standard"
   volume_size = "9"
@@ -23,14 +30,14 @@ ebs_block_device {
 }
 
 resource "aws_instance" "appserver" {
-count = 1
-availability_zone = "us-east-1c"
+count = 2
+#availability_zone = "us-east-1c"
 ami = "${var.myamiid}"
 instance_type = "t2.medium"
-subnet_id = "${var.publicsubnet}"
-private_ip= "192.168.1.7"
+subnet_id = "${var.privatesubnet1}"
+#private_ip= "192.168.3.6"
 vpc_security_group_ids = ["${var.websg}"]
 key_name = "${var.mykeypair}"
 user_data = "${var.userdata}"
-tags = "${merge(var.tags, map("Name", format("db-server-%d", count.index + 1)))}"
+tags = "${merge(var.tags, map("Name", format("app-server-%d", count.index + 1)))}"
 }

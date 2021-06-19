@@ -1,13 +1,6 @@
-variable "webserver"{
+variable "lbserver"{
 type = string
 }
-variable "dbserver"{
+variable "appserver"{
 type = string
 }
-#variable "mysecretkey"{
-#type = "string"
-#}
-#variable "myregion"{
-#type = "string"
-#default = "us-east-1"
-#}

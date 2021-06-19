@@ -1,16 +1,11 @@
 ################################################  Cloud init module  ####################################
-data "template_file" "lbserver-userdata" {
-  template = "${file("${path.module}/userdata.tpl")}"
+provider "template"{
 
-  vars = {
-   vm_role = "lb"
-  }
 }
-
-data "template_file" "appserver-userdata" {
+data "template_file" "webserver-userdata" {
   template = "${file("${path.module}/userdata.tpl")}"
 
   vars = {
-   vm_role = "app"
+   vm_role = "web"
   }
 }

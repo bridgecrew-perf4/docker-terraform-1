@@ -3,13 +3,6 @@ type = "string"
 default = "us-east-1"
 }
 
-#variable "myaccesskey"{
-#type = string
-#}
-
-#variable "mysecretkey"{
-#type = "string"
-#}
 
 variable "myamiid"{
 type = "string"
@@ -17,7 +10,6 @@ type = "string"
 }
 variable "mykeypair"{
 type = "string"
-#default = "ami-04e7101e25c6bc584"
 }
 
 #variable "mytags"{

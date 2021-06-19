@@ -1,8 +1,8 @@
-output "webserver" {
-value = "${aws_instance.webserver[0].id}"
+output "lbserver" {
+value = "${aws_instance.lbserver[0].id}"
 }
-output "dbserver" {
-value = "${aws_instance.dbserver[0].id}"
+output "appserver" {
+value = "${aws_instance.appserver[0].id}"
 }
 #output "appserver_publicip" {
 #value = "${aws_instance.appserver.public_ip}"
