@@ -15,8 +15,14 @@ type = string
 variable "websg"{
 type = "string"
 }
-variable "userdata"{
-type = "string"
+#variable "lbuserdata"{
+#type = "string"
+#}
+#variable "appuserdata"{
+#type = "string"
+#}
+variable "user_data"{
+type = "map"
 }
 variable "tags"{
 type = "map"

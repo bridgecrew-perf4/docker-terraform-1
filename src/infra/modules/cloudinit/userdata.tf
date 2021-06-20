@@ -2,10 +2,17 @@
 provider "template"{
 
 }
-data "template_file" "webserver-userdata" {
+data "template_file" "lbserver-userdata" {
   template = "${file("${path.module}/userdata.tpl")}"
 
   vars = {
-   vm_role = "web"
+   vm_role = "lbserver"
+  }
+}
+data "template_file" "appserver-userdata" {
+  template = "${file("${path.module}/userdata.tpl")}"
+
+  vars = {
+   vm_role = "appserver"
   }
 }

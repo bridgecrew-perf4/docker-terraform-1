@@ -3,12 +3,12 @@ repo_update: true
 repo_upgrade: all
 
 write_files:
-- path: /home/centos/config/meta_data.json
+- path: /etc/csp/boot_config/metadata.json
   permissions: '0777'
   content: |
      {
      "meta": {
-      "server_role" : "web"
+      "vm_role" : "${vm_role}"
      }
              }
              
@@ -19,7 +19,7 @@ write_files:
      #!/bin/sh
      touch /home/centos/testing.txt
 
-- path: /home/centos/ssh_keys.sh
+- path: /etc/csp/boot_scripts/ssh_keys.sh
   permissions: '0777'
   owner: centos:centos
   content: |
@@ -30,11 +30,12 @@ write_files:
 
      ssh -o StrictHostKeyChecking=no centos@localhost
      
-- path: /home/centos/play-books.sh
+- path: /etc/csp/boot_scripts/play-books.sh
   permissions: '0777'
   owner: centos:centos
   content: |
      #!/bin/sh
+     sudo systemctl start docker
      git clone https://github.com/cloudstones/docker-ansible.git
 
      cd docker-ansible/src/webapp

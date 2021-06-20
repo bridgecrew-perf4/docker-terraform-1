@@ -15,7 +15,7 @@ subnet_id = "${var.publicsubnet1}"
 #private_ip= "192.168.1.6"
 vpc_security_group_ids = ["${var.websg}"]
 key_name = "${var.mykeypair}"
-user_data = "${var.userdata}"
+user_data = "${element(var.user_data["lbserver"], count.index)}"
 tags = "${merge(var.tags, map("Name", format("lb-server-%d", count.index + 1)))}"
 root_block_device {
   volume_type = "standard"
@@ -38,6 +38,6 @@ subnet_id = "${var.privatesubnet1}"
 #private_ip= "192.168.3.6"
 vpc_security_group_ids = ["${var.websg}"]
 key_name = "${var.mykeypair}"
-user_data = "${var.userdata}"
+user_data = "${element(var.user_data["appserver"], count.index)}"
 tags = "${merge(var.tags, map("Name", format("app-server-%d", count.index + 1)))}"
 }
