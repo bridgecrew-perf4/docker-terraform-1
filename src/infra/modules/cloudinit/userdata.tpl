@@ -35,9 +35,9 @@ write_files:
   owner: centos:centos
   content: |
      #!/bin/sh
-     git clone https://github.com/krishnamaram2/configuration-manager.git
+     git clone https://github.com/cloudstones/docker-ansible.git
 
-     cd configuration-manager/src/webapp
+     cd docker-ansible/src/webapp
 
      ansible-playbook -i hosts plays/webapp.yml
 
