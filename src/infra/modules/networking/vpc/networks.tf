@@ -1,29 +1,6 @@
-####################################### AWS RDS DB subnet group ##############################
-resource "aws_db_subnet_group" "mydbsubnetgroup" {
-  name       = "mydbsubnetgroup"
-  subnet_ids = [aws_subnet.privatesubnet1.id, aws_subnet.privatesubnet2.id]
-
-  tags = {
-    Name = "My DB subnet group"
-  }
-}
-
-
-
-
-
-#resource "aws_eip" "lbeip"{
-#count = 2
-#instance = "${var.lbserver}"
-#}
-#resource "aws_eip" "dbeip"{
-#instance = "${var.dbserver}"
-#}
-
-resource "aws_eip" "ngweip"{
-}
+############### VPC Creation ##############
 resource "aws_vpc" "myvpc"{
-cidr_block = "192.168.0.0/16"
+cidr_block = "${var.vpc_cidr}"
 tags ={
 Name = "myvpc"
 }
@@ -36,119 +13,104 @@ Name = "myigw"
 }
 }
 
-
-############################################ Public Subnets ###############################3
-resource "aws_subnet" "publicsubnet1"{
-vpc_id = "${aws_vpc.myvpc.id}"
-cidr_block = "192.168.1.0/24"
-tags={
-Name = "publicsubnet1"
-}
-}
-
-resource "aws_route_table" "publicrtb1"{
-vpc_id = "${aws_vpc.myvpc.id}"
-tags = {
-Name = "publicrtb1"
-}
-}
-
-resource "aws_route" "publicrt1"{
-route_table_id = "${aws_route_table.publicrtb1.id}"
-destination_cidr_block = "0.0.0.0/0"
-gateway_id = "${aws_internet_gateway.myigw.id}"
-}
- 
-resource "aws_route_table_association" "publicrtba1"{
-route_table_id = "${aws_route_table.publicrtb1.id}"
-subnet_id = "${aws_subnet.publicsubnet1.id}"
-}
-
-
-resource "aws_subnet" "publicsubnet2"{
-vpc_id = "${aws_vpc.myvpc.id}"
-cidr_block = "192.168.2.0/24"
-tags={
-Name = "publicsubnet2"
-}
-}
-
-resource "aws_route_table" "publicrtb2"{
-vpc_id = "${aws_vpc.myvpc.id}"
-tags = {
-Name = "publicrtb2"
-}
-}
-
-resource "aws_route" "publicrt2"{
-route_table_id = "${aws_route_table.publicrtb2.id}"
-destination_cidr_block = "0.0.0.0/0"
-gateway_id = "${aws_internet_gateway.myigw.id}"
-}
- 
-resource "aws_route_table_association" "publicrtba2"{
-route_table_id = "${aws_route_table.publicrtb2.id}"
-subnet_id = "${aws_subnet.publicsubnet2.id}"
-}
-############################################ Private Subnets ###############################3
-
-
 resource "aws_nat_gateway" "myngw" {
-  allocation_id = aws_eip.ngweip.id
-  subnet_id     = aws_subnet.publicsubnet1.id
+  count = "${var.azs_cnt}"
+  allocation_id = "${element(aws_eip.ngweip.*.id, count.index)}"
+  subnet_id     = "${element(aws_subnet.lbsubnet.*.id, count.index)}"
   tags = {
     Name = "myngw"
   }
 }
 
-resource "aws_subnet" "privatesubnet1"{
+resource "aws_eip" "ngweip"{
+count = "${var.azs_cnt}"
+vpc = true
+}
+############################################ Public Subnets ###############################3
+resource "aws_subnet" "lbsubnet"{
+count = "${var.azs_cnt}"
 vpc_id = "${aws_vpc.myvpc.id}"
-cidr_block = "192.168.3.0/24"
-availability_zone = "us-east-1c"
+cidr_block = "${cidrsubnet(var.vpc_cidr_lbsubnet, 2, count.index)}"
+availability_zone = "${element(split(",", var.azs_lst), count.index)}"
 tags={
-Name = "privatesubnet1"
+Name = "lbsubnet"
 }
 }
 
-resource "aws_route_table" "privatertb1"{
+resource "aws_route_table" "publicrtb"{
 vpc_id = "${aws_vpc.myvpc.id}"
 tags = {
-Name = "privatertb1"
+Name = "publicrtb"
 }
 }
 
-resource "aws_route" "privatert1"{
-route_table_id = "${aws_route_table.privatertb1.id}"
+resource "aws_route" "publicrt"{
+route_table_id = "${aws_route_table.publicrtb.id}"
 destination_cidr_block = "0.0.0.0/0"
-nat_gateway_id = "${aws_nat_gateway.myngw.id}"
+gateway_id = "${aws_internet_gateway.myigw.id}"
 }
-resource "aws_route_table_association" "privatertba1"{
-route_table_id = "${aws_route_table.privatertb1.id}"
-subnet_id = "${aws_subnet.privatesubnet1.id}"
-}
+ 
+#resource "aws_route_table_association" "publicrtba1"{
+#route_table_id = "${aws_route_table.publicrtb1.id}"
+#subnet_id = "${aws_subnet.publicsubnet1.id}"
+#}
 
-resource "aws_subnet" "privatesubnet2"{
+############################################ Private Subnets ###############################3
+
+
+resource "aws_subnet" "appsubnet"{
+count = "${var.enable_user_defined_ips ? var.desired_azs_cnt : var.azs_cnt}"
 vpc_id = "${aws_vpc.myvpc.id}"
-cidr_block = "192.168.4.0/24"
-availability_zone = "us-east-1d"
+cidr_block = "${cidrsubnet(var.vpc_cidr_appsubnet, 2, count.index)}"
+availability_zone = "${element(split(",", var.azs_lst), count.index)}"
 tags={
-Name = "privatesubnet2"
+Name = "appsubnet"
 }
 }
 
-resource "aws_route_table" "privatertb2"{
+resource "aws_route_table" "privatertb"{
 vpc_id = "${aws_vpc.myvpc.id}"
 tags = {
-Name = "privatertb2"
+Name = "privatertb"
 }
 }
 
-resource "aws_route" "privatert2"{
-route_table_id = "${aws_route_table.privatertb2.id}"
+resource "aws_route" "privatert"{
+count = "${var.azs_cnt}"
+route_table_id = "${element(aws_route_table.privatertb.*.id, count.index)}"
 destination_cidr_block = "0.0.0.0/0"
-nat_gateway_id = "${aws_nat_gateway.myngw.id}"
+nat_gateway_id = "${element(aws_nat_gateway.myngw.*.id, count.index)}"
 }
-resource "aws_route_table_association" "privatertba2"{
-route_table_id = "${aws_route_table.privatertb2.id}"
-subnet_id = "${aws_subnet.privatesubnet2.id}"
+
+resource "aws_route" "route_mainrtb"{
+route_table_id = "${aws_vpc.myvpc.main_route_table_id}"
+destination_cidr_block = "0.0.0.0/0"
+gateway_id = "${aws_internet_gateway.myigw.id}"
+}
+
+
+####################################### AWS RDS DB subnet group ##############################
+
+
+resource "aws_subnet" "rds_subnet" {
+  count = 2
+  vpc_id       = "${aws_vpc.myvpc.id}"
+  cidr_block = "192.168.${var.rds_base_subnet+count.index}.0/24"
+  availability_zone = "${element(split(",",var.azs_lst), count.index)}"
+  tags = {
+    Name = "rdssubnet"
+  }
+}
+resource "aws_db_subnet_group" "mydbsubnetgroup" {
+  name       = "mydbsubnetgroup"
+  subnet_ids = "${aws_subnet.rds_subnet.*.id}"
+
+  tags = {
+    Name = "My DB subnet group"
+  }
+}
+
+variable "rds_base_subnet" {
+  default = 30
+  description = " base number to be used in the unique CIDR block"
 }

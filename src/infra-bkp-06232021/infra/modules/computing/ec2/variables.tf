@@ -6,11 +6,11 @@ variable "mykeypair"{
 type = "string"
 default = "virginia"
 }
-variable "lbsubnet"{
-type = list
+variable "publicsubnet1"{
+type = string
 }
-variable "appsubnet"{
-type = list
+variable "privatesubnet1"{
+type = string
 }
 variable "websg"{
 type = "string"
