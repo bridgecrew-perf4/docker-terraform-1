@@ -16,7 +16,7 @@
 "appserver_pa_ips" : ["192.168.20.40:0"],
 
 "rds_mysql_db" : {
-  "recover" : "true",
+  "recover" : "false",
   "snapshot_names" : "rds-mysql-db-snp"
 }
 }
